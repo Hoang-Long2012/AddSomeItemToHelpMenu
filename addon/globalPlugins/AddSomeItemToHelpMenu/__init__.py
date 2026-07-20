@@ -20,12 +20,12 @@ addonHandler.initTranslation()
 # Define a base globalPlugin return decorator as NVDA running in secure desktop
 def disableIfOnSecureDesktop(pluginClass):
 	if globalVars.appArgs.secure:
-		return globalPluginHandler.globalPlugin
+		return globalPluginHandler.GlobalPlugin
 	return pluginClass
 
 # Define globalPlugin class
 @disableIfOnSecureDesktop  # If n v d a is running on a secure desktop returns the base global Plugin class
-class globalPlugin(globalPluginHandler.globalPlugin):
+class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super().__init__()
 		# A Urllib3 pool manager
@@ -57,19 +57,19 @@ class globalPlugin(globalPluginHandler.globalPlugin):
 		# Translators: Label of Contributors menu item
 		contributorsLabel = _("Contribut&ors")
 		if self.helpMenu.FindItem(contributorsLabel) == wx.NOT_FOUND:
-			self.contributors = self.helpMenu.Insert(8, wx.ID_ANY, contributorsLabel)
+			self.contributors = self.helpMenu.Insert(11, wx.ID_ANY, contributorsLabel)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.openContributors, self.contributors)
 
 		# Translators: Label of GitHub repo menu item
 		GitHubRepoLabel = _("GitHub &repository")
 		if self.helpMenu.FindItem(GitHubRepoLabel) == wx.NOT_FOUND:
-			self.repo = self.helpMenu.Insert(9, wx.ID_ANY, GitHubRepoLabel)
+			self.repo = self.helpMenu.Insert(12, wx.ID_ANY, GitHubRepoLabel)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.gitHubRepo, self.repo)
 
 		# Translators: Label of Donate menu item
 		DonateLabel = _("&Donate")
 		if self.helpMenu.FindItem(DonateLabel) == wx.NOT_FOUND:
-			self.donate = self.helpMenu.Insert(10, wx.ID_ANY, DonateLabel)
+			self.donate = self.helpMenu.Insert(13, wx.ID_ANY, DonateLabel)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.NVDADonate, self.donate)
 
 	def terminate(self, *args, **kwargs):
@@ -128,4 +128,4 @@ class globalPlugin(globalPluginHandler.globalPlugin):
 		wx.LaunchDefaultBrowser("https://www.nvaccess.org/category/in-process/")
 
 	def NVDADonate(self, event):
-		wx.LaunchDefaultBrowser("https://nvaccess.org/donate/")
+		wx.LaunchDefaultBrowser(gui.DONATE_URL)	
