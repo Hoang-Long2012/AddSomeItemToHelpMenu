@@ -34,7 +34,7 @@ def formatContributors(text):
 		"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md",
 		"<https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md>",
 	)
-	contributors = ["# Contributors"]
+	contributors = ["# Contributors  "]
 	list_started = False
 	for line in text.splitlines():
 		if not line.strip():
