@@ -40,7 +40,7 @@ def formatContributors(text):
 		if not line.strip():
 			if not list_started:
 				list_started = True
-				contributors.append("")
+				contributors.append("  ")
 			continue
 		line = line.strip()
 		if list_started:
