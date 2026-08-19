@@ -24,6 +24,21 @@ def disableIfOnSecureDesktop(pluginClass):
 		return globalPluginHandler.GlobalPlugin
 	return pluginClass
 
+# Formatter for contributors
+def formatContributors(text):
+	contributors = ["# Contributors  "]
+	list = False
+	for line in text.splitlines():
+		if not line == "\n":
+			if not list:
+				contributors.append(line.strip() + "  ")
+			else:
+				contributors.append("- " + line.strip())
+		else:
+			list = True
+			contributors.append(line)
+	return markdown.markdown("\n".join(contributors))
+
 # Define globalPlugin class
 @disableIfOnSecureDesktop  # If n v d a is running on a secure desktop returns the base global Plugin class
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -118,7 +133,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				response.release_conn()
 		if os.path.isfile(filePath):
 			with open(filePath, "r", encoding="utf-8") as file:
-				message = markdown.markdown("# Contributors  \n" + file.read())
+				message = formatContributors(file.read())
 				ui.browseableMessage(message=message, title=_("NVDA Contributors"), isHtml=True)
 				return None
 		reportNoDocumentation(fileName, True)
