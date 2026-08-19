@@ -13,6 +13,7 @@ import gui
 import wx
 import os
 import urllib3
+import markdown
 
 # For translation
 addonHandler.initTranslation()
@@ -117,7 +118,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				response.release_conn()
 		if os.path.isfile(filePath):
 			with open(filePath, "r", encoding="utf-8") as file:
-				ui.browseableMessage(message=file.read(), title=_("NVDA Contributors"), isHtml=False)
+				message = markdown.markdown("# Contributors  \n" + file.read())
+				ui.browseableMessage(message=message, title=_("NVDA Contributors"), isHtml=True)
 				return None
 		reportNoDocumentation(fileName, True)
 
@@ -128,4 +130,4 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.LaunchDefaultBrowser("https://www.nvaccess.org/category/in-process/")
 
 	def NVDADonate(self, event):
-		wx.LaunchDefaultBrowser(gui.DONATE_URL)	
+		wx.LaunchDefaultBrowser(gui.DONATE_URL)
