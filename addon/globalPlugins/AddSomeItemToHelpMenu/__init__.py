@@ -26,16 +26,18 @@ def disableIfOnSecureDesktop(pluginClass):
 
 # Formatter for contributors
 def formatContributors(text):
-	contributors = ["# Contributors  "]
-	list = False
+	contributors = ["# Contributors"]
+	list_started = False
 	for line in text.splitlines():
-		if not line == "\n":
-			if not list:
-				contributors.append(line.strip() + "  ")
-			else:
-				contributors.append("- " + line.strip())
+		if not line.strip():
+			if not list_started:
+				list_started = True
+				contributors.append("")
+			continue
+		line = line.strip()
+		if list_started:
+			contributors.append("- " + line)
 		else:
-			list = True
 			contributors.append(line)
 	return markdown.markdown("\n".join(contributors))
 
