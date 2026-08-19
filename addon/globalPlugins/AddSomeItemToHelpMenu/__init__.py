@@ -28,7 +28,7 @@ def disableIfOnSecureDesktop(pluginClass):
 def formatContributors(text):
 	text = text.replace(
 		"https://github.com/nvaccess/nvda/graphs/contributors",
-		"<https://github.com/nvaccess/nvda/graphs/contributors>",
+		"<https://github.com/nvaccess/nvda/graphs/contributors>  ",
 	)
 	text = text.replace(
 		"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md",
