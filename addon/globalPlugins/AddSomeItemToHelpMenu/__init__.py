@@ -47,7 +47,7 @@ def formatContributors(text):
 			contributors.append("- " + line)
 		else:
 			contributors.append(line + "  ")
-	return markdown.markdown("\n".join(contributors))
+	return markdown.markdown("".join(contributors))
 
 # Define globalPlugin class
 @disableIfOnSecureDesktop  # If n v d a is running on a secure desktop returns the base global Plugin class
