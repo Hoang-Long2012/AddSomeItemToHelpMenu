@@ -34,20 +34,20 @@ def formatContributors(text):
 		"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md",
 		"<https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md>",
 	)
-	contributors = ["# Contributors\n"]
+	contributors = ["# Contributors"]
 	list_started = False
 	for line in text.splitlines():
 		if not line.strip():
 			if not list_started:
 				list_started = True
-				contributors.append("  ")
+				contributors.append("\n")
 			continue
 		line = line.strip()
 		if list_started:
 			contributors.append("- " + line)
 		else:
-			contributors.append(line + "  ")
-	return markdown.markdown("".join(contributors))
+			contributors.append(line)
+	return markdown.markdown("\n".join(contributors))
 
 # Define globalPlugin class
 @disableIfOnSecureDesktop  # If n v d a is running on a secure desktop returns the base global Plugin class
