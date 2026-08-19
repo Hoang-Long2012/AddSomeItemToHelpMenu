@@ -28,25 +28,26 @@ def disableIfOnSecureDesktop(pluginClass):
 def formatContributors(text):
 	text = text.replace(
 		"https://github.com/nvaccess/nvda/graphs/contributors",
-		"<https://github.com/nvaccess/nvda/graphs/contributors>",
+		"<a href=\"https://github.com/nvaccess/nvda/graphs/contributors\">https://github.com/nvaccess/nvda/graphs/contributors</a>",
 	)
 	text = text.replace(
 		"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md",
-		"<https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md>",
+		"<a href=\"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md\">https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md</a>",
 	)
+	lines = text.splitlines()
 	contributors = ["# Contributors"]
 	list_started = False
-	for line in text.splitlines():
-		if not line.strip():
+	for line in lines:
+		line = line.strip()
+		if not line:
 			if not list_started:
 				list_started = True
-				contributors.append("\n")
+				contributors.append("  ")
 			continue
-		line = line.strip()
 		if list_started:
 			contributors.append("- " + line)
 		else:
-			contributors.append(line)
+			contributors.append(f"<div>{line}</div>")
 	return markdown.markdown("\n".join(contributors))
 
 # Define globalPlugin class
