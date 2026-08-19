@@ -125,14 +125,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		filePath = os.path.join(globalVars.appDir, "documentation", fileName)
 		response = None
 		try:
-			response = self.https.request("GET", f"https://raw.githubusercontent.com/nvaccess/nvda/master/{fileName}", timeout=urllib3.Timeout(connect=5.0, read=10.0))
+			response = self.https.request("GET", f"https://raw.githubusercontent.com/nvaccess/nvda/master/{fileName}", timeout=urllib3.Timeout(connect=2.0, read=10.0))
 			if response.status != 200:
 				raise urllib3.exceptions.HTTPError(f"HTTP Error: {response.status} {response.reason}")
 			old = ""
 			if os.path.isfile(filePath):
 				with open(filePath, "r", encoding="utf-8-sig") as file:
 					old = file.read()
-			data = response.data.decode("utf-8")
+			data = response.data.decode("utf-8-sig")
 			if data != old:
 				with open(filePath, "w", encoding="utf-8-sig") as file:
 					file.write(data)
