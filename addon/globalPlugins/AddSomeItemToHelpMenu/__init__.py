@@ -26,6 +26,14 @@ def disableIfOnSecureDesktop(pluginClass):
 
 # Formatter for contributors
 def formatContributors(text):
+	text = text.replace(
+		"https://github.com/nvaccess/nvda/graphs/contributors",
+		"<https://github.com/nvaccess/nvda/graphs/contributors>",
+	)
+	text = text.replace(
+		"https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md",
+		"<https://github.com/nvaccess/nvda/blob/master/projectDocs/community/expertsList.md>",
+	)
 	contributors = ["# Contributors"]
 	list_started = False
 	for line in text.splitlines():
@@ -122,11 +130,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				raise urllib3.exceptions.HTTPError(f"HTTP Error: {response.status} {response.reason}")
 			old = ""
 			if os.path.isfile(filePath):
-				with open(filePath, "r", encoding="utf-8") as file:
+				with open(filePath, "r", encoding="utf-8-sig") as file:
 					old = file.read()
 			data = response.data.decode("utf-8")
 			if data != old:
-				with open(filePath, "w", encoding="utf-8") as file:
+				with open(filePath, "w", encoding="utf-8-sig") as file:
 					file.write(data)
 		except Exception:
 			log.exception(f"Cannot update {fileName}")
@@ -134,7 +142,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if response is not None:
 				response.release_conn()
 		if os.path.isfile(filePath):
-			with open(filePath, "r", encoding="utf-8") as file:
+			with open(filePath, "r", encoding="utf-8-sig") as file:
 				message = formatContributors(file.read())
 				ui.browseableMessage(message=message, title=_("NVDA Contributors"), isHtml=True)
 				return None
