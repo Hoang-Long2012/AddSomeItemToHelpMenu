@@ -42,7 +42,7 @@ def formatContributors(text):
 		if not line:
 			if not list_started:
 				list_started = True
-				contributors.append("<div></div>")
+				contributors.append("<div><br /></div>")
 			continue
 		if list_started:
 			contributors.append("- " + line)
